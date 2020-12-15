@@ -14,4 +14,9 @@ div {
 }
 </style>
 
-<div on:mousemove="{handleMousemove}">The mouse position is {m.x} x {m.y}</div>
+<div on:mousemove="{(e) => (m = { x: e.clientX, y: e.clientY })}">
+  The mouse position is
+  {m.x}
+  x
+  {m.y}
+</div>
