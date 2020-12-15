@@ -1,21 +1,33 @@
 <script>
-import Thing from "./Thing.svelte";
+async function getTodo() {
+  const randomId = Math.floor(Math.random() * (100 + 1 - 1)) + 1;
+  const res = await fetch(
+    `https://jsonplaceholder.typicode.com/todos/${randomId}`
+  );
+  const json = await res.json();
 
-let things = [
-  { id: 1, color: "darkblue" },
-  { id: 2, color: "indigo" },
-  { id: 3, color: "deeppink" },
-  { id: 4, color: "salmon" },
-  { id: 5, color: "red" },
-];
+  if (res.ok) {
+    return json;
+  } else {
+    throw new Error(res.status);
+  }
+}
+
+let promise = getTodo();
 
 function handleClick() {
-  things = things.slice(1);
+  promise = getTodo();
 }
 </script>
 
-<button on:click="{handleClick}"> Remove first thing </button>
+<button on:click="{handleClick}"> get todo </button>
 
-{#each things as thing (thing.id)}
-  <Thing current="{thing.color}" />
-{/each}
+<!-- replace this element -->
+{#await promise}
+  <p>...waiting</p>
+{:then todo}
+  <p>The todo id is {todo.id}</p>
+  <p>The todo title is {todo.title}</p>
+{:catch error}
+  <p style="color: red">{error}</p>
+{/await}
