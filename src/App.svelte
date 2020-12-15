@@ -1,33 +1,17 @@
 <script>
-async function getTodo() {
-  const randomId = Math.floor(Math.random() * (100 + 1 - 1)) + 1;
-  const res = await fetch(
-    `https://jsonplaceholder.typicode.com/todos/${randomId}`
-  );
-  const json = await res.json();
+let m = { x: 0, y: 0 };
 
-  if (res.ok) {
-    return json;
-  } else {
-    throw new Error(res.status);
-  }
-}
-
-let promise = getTodo();
-
-function handleClick() {
-  promise = getTodo();
+function handleMousemove(event) {
+  m.x = event.clientX;
+  m.y = event.clientY;
 }
 </script>
 
-<button on:click="{handleClick}"> get todo </button>
+<style>
+div {
+  width: 100%;
+  height: 100%;
+}
+</style>
 
-<!-- replace this element -->
-{#await promise}
-  <p>...waiting</p>
-{:then todo}
-  <p>The todo id is {todo.id}</p>
-  <p>The todo title is {todo.title}</p>
-{:catch error}
-  <p style="color: red">{error}</p>
-{/await}
+<div on:mousemove="{handleMousemove}">The mouse position is {m.x} x {m.y}</div>
