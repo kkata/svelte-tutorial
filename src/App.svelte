@@ -1,6 +1,7 @@
 <script>
-	let name = 'world'
+	let src = 'tutorial/image.gif'
+	let name = "Rick Astley"
 </script>
 
 
-	<h1>Hello {name.toUpperCase()}!</h1>
+<img src={src} alt="{name} dances.">
