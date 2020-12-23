@@ -1,8 +1,28 @@
 <script>
-import { name, greeting } from "./stores.js";
+import { tweened } from "svelte/motion";
+import { cubicOut } from "svelte/easing";
+
+const progress = tweened(0, {
+  duration: 400,
+  easing: cubicOut,
+});
 </script>
 
-<h1>{$greeting}</h1>
-<input bind:value="{$name}" />
+<style>
+progress {
+  display: block;
+  width: 100%;
+}
+</style>
 
-<button on:click="{() => ($name += '!')}">Add exclamation mark!</button>
+<progress value="{$progress}"></progress>
+
+<button on:click="{() => progress.set(0)}"> 0% </button>
+
+<button on:click="{() => progress.set(0.25)}"> 25% </button>
+
+<button on:click="{() => progress.set(0.5)}"> 50% </button>
+
+<button on:click="{() => progress.set(0.75)}"> 75% </button>
+
+<button on:click="{() => progress.set(1)}"> 100% </button>
