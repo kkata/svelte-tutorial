@@ -10,5 +10,5 @@
 </style>
 
 <div class="box">
-  <slot />
+  <slot><em>no content was provided</em></slot>
 </div>
