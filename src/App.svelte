@@ -1,5 +1,9 @@
 <script>
-import Box from "./Box.svelte";
+import ContactCard from "./ContactCard.svelte";
 </script>
 
-<Box />
+<ContactCard>
+  <span slot="name"> P. Sherman </span>
+
+  <span slot="address"> 42 Wallaby Way<br /> Sydney </span>
+</ContactCard>
